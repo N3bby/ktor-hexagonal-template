@@ -1,0 +1,5 @@
+
+dependencies {
+    project(':note-service:note-service-core-domain')
+    project(':note-service:note-service-core-api')
+}
