@@ -1,8 +1,11 @@
 package com.razacx.project.adapter.rest.api
 
+import com.razacx.project.core.api.CommandExecutor
+import com.razacx.project.core.api.QueryExecutor
 import com.razacx.project.core.api.note.CreateNoteCommand
+import com.razacx.project.core.api.note.FindAllNotesQuery
+import com.razacx.project.core.api.note.FindNoteByIdQuery
 import com.razacx.project.core.domain.note.Note
-import com.razacx.project.core.domain.note.NoteRepository
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode.Companion.Created
 import io.ktor.http.HttpStatusCode.Companion.OK
@@ -15,44 +18,27 @@ import io.ktor.routing.route
 import org.koin.ktor.ext.inject
 import java.time.LocalDateTime
 import java.util.*
-import java.util.UUID.randomUUID
 
 fun Routing.notesRoute() {
-    val noteRepository by inject<NoteRepository>()
-//    val dateProvider by inject<DateProvider>()
+    val commandExecutor by inject<CommandExecutor>()
+    val queryExecutor by inject<QueryExecutor>()
 
     route("note") {
 
         post("") {
-            val createNoteJson = call.receive<CreateNoteCommand>()
-            val id = randomUUID()
-//            transaction {
-                noteRepository.save(
-                    Note(
-                        id = id,
-                        author = createNoteJson.author,
-                        message = createNoteJson.message,
-                        timestamp = LocalDateTime.now()
-                    )
-                )
-//            }
+            val createNoteCommand = call.receive<CreateNoteCommand>()
+            val id = commandExecutor.handle(createNoteCommand)
             call.respond(Created, NoteIdJson(id))
         }
 
         get("") {
-            val notes =
-//                transaction {
-                noteRepository.findAll()
-//            }
+            val notes = queryExecutor.handle(FindAllNotesQuery())
             call.respond(OK, notes.map(::toJson))
         }
 
         get("{id}") {
             val id = UUID.fromString(call.parameters["id"])
-            val note =
-//                transaction {
-                    noteRepository.find(id)
-//                }
+            val note = queryExecutor.handle(FindNoteByIdQuery(id))
             call.respond(OK, toJson(note))
         }
 

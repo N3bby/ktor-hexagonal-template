@@ -1,7 +1,8 @@
 package com.razacx.project.launcher
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.razacx.project.adapter.rest.api.helloWorldRoute
+import com.razacx.project.adapter.rest.api.notesRoute
+import com.razacx.project.core.api.koinCoreApiModule
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
@@ -27,9 +28,9 @@ fun Application.main() {
     }
     install(Koin) {
         slf4jLogger()
-//        modules(beanDefinitions!!) TODO add koin bean module to ktor bootstrapping
+        modules(koinCoreApiModule())
     }
     routing {
-        helloWorldRoute()
+        notesRoute()
     }
 }

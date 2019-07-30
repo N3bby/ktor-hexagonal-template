@@ -6,7 +6,7 @@ import java.util.UUID.randomUUID
 
 data class Note(val id: UUID, val author: String, val message: String, val timestamp: LocalDateTime)
 
-// TODO This should be in a sharedTest sourceSet that can be shared with other dependencies.
+// TODO This should be in a sharedTest sourceSet that can be added as a dependency.
 fun defaultNote(
     id: UUID = randomUUID(),
     author: String = "John",

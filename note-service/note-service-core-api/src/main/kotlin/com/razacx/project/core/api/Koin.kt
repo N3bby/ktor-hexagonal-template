@@ -3,7 +3,7 @@ package com.razacx.project.core.api
 import com.razacx.project.core.api.note.*
 import org.koin.dsl.module
 
-fun createKoinModule() = module {
+fun koinCoreApiModule() = module {
 
     single {
         CommandHandlerCollection(
