@@ -2,6 +2,7 @@ package com.razacx.project.launcher
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.razacx.project.adapter.rest.api.notesRoute
+import com.razacx.project.adapter.sql.koinAdapterSqlModule
 import com.razacx.project.core.api.koinCoreApiModule
 import io.ktor.application.Application
 import io.ktor.application.install
@@ -28,7 +29,10 @@ fun Application.main() {
     }
     install(Koin) {
         slf4jLogger()
-        modules(koinCoreApiModule())
+        modules(
+            koinCoreApiModule(),
+            koinAdapterSqlModule()
+        )
     }
     routing {
         notesRoute()
