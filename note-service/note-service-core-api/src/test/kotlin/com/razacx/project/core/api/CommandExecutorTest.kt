@@ -19,7 +19,8 @@ class CommandExecutorTest : UnitTest() {
     @Test
     internal fun `handle throws exception when no CommandHandler is found for the given command`() {
         val commandExecutor = CommandExecutor(CommandHandlerCollection(emptyList()))
-        assertThrows<DomainRuntimeException> { commandExecutor.handle(DummyCommand()) }
+        val exception = assertThrows<DomainRuntimeException> { commandExecutor.handle(DummyCommand()) }
+        assertThat(exception.message).isEqualTo("No handler found for command of type com.razacx.project.core.api.DummyCommand")
     }
 
 }
