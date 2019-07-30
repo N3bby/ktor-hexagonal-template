@@ -1,6 +1,7 @@
 package com.razacx.project.core.api.note
 
 import com.razacx.project.common.UnitTest
+import com.razacx.project.core.domain.note.NoteId
 import com.razacx.project.core.domain.note.NoteRepository
 import com.razacx.project.core.domain.note.defaultNote
 import io.mockk.every
@@ -17,7 +18,7 @@ class FindNoteByIdQueryHandlerTest: UnitTest() {
 
     @Test
     fun `handle returns Note from repository`() {
-        val id = randomUUID()
+        val id = NoteId(randomUUID())
         val expectedNote = defaultNote(id)
         every { noteRepository.find(id) }.returns(expectedNote)
 

@@ -4,6 +4,7 @@ import com.razacx.project.common.UnitTest
 import com.razacx.project.common.util.date.DateProvider
 import com.razacx.project.common.util.uuid.UUIDProvider
 import com.razacx.project.core.domain.note.Note
+import com.razacx.project.core.domain.note.NoteId
 import com.razacx.project.core.domain.note.NoteRepository
 import io.mockk.every
 import io.mockk.mockk
@@ -32,7 +33,7 @@ class CreateNoteCommandHandlerTest : UnitTest() {
         val command = CreateNoteCommand("John", "This is a note")
         handler.handle(command)
 
-        verify(exactly = 1) { noteRepository.save(Note(id, command.author, command.message, now)) }
+        verify(exactly = 1) { noteRepository.save(Note(NoteId(id), command.author, command.message, now)) }
     }
 
     @Test
