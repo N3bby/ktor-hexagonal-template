@@ -4,9 +4,9 @@ import com.razacx.project.core.domain.note.Note
 import com.razacx.project.core.domain.note.NoteId
 import com.razacx.project.core.domain.note.NoteRepository
 
-private val notes: MutableMap<NoteId, Note> = mutableMapOf()
-
 class NoteRepositoryImpl: NoteRepository {
+
+    private val notes: MutableMap<NoteId, Note> = mutableMapOf()
 
     override fun save(note: Note) {
         notes[note.id] = note

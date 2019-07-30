@@ -1,8 +1,8 @@
 package com.razacx.project
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.razacx.project.common.UnitTest
+import com.razacx.project.launcher.createObjectMapper
 import com.razacx.project.launcher.main
 import io.ktor.application.Application
 import io.ktor.http.ContentType
@@ -12,22 +12,15 @@ import io.ktor.server.testing.*
 
 open class IntegrationTest : UnitTest() {
 
-//    @AfterEach
-//    internal fun tearDown() {
-//        transaction {
-//            SchemaUtils.drop(*tables.toTypedArray())
-//        }
-//    }
-
     // Can't be private since we can't inline our fromJson function otherwise
-    protected val objectMapper = jacksonObjectMapper()
+    protected val objectMapper = createObjectMapper()
 
     protected fun <R> integrationTest(test: TestApplicationEngine.() -> R): R {
-//        beanDefinitions = createBeanDefinitions()
-//        beanDefinitions!!.singleBy<DatabaseConnector, DatabaseConnectorTestImpl>(override = true)
-//        beanDefinitions!!.singleBy<DateProvider, DateProviderTestImpl>(override = true)
+        overrideKoinModules()
         return withTestApplication(Application::main, test)
     }
+
+    protected open fun overrideKoinModules() = Unit
 
     protected fun post(application: TestApplicationEngine, route: String, body: String): TestApplicationResponse {
         return with(application.handleRequest(HttpMethod.Post, route) {

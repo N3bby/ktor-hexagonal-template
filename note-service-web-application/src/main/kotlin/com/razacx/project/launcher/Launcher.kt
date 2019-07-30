@@ -1,5 +1,8 @@
 package com.razacx.project.launcher
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.razacx.project.adapter.rest.api.notesRoute
 import com.razacx.project.adapter.sql.koinAdapterSqlModule
@@ -26,18 +29,25 @@ fun main() {
     ).start(wait = true)
 }
 
+val koinRootModule = module {
+    single { UUIDProvider() }
+    single { DateProvider() }
+}
 val koinModules = listOf(
     koinCoreApiModule(),
     koinAdapterSqlModule(),
-    module {
-        single { UUIDProvider() }
-        single { DateProvider() }
-    }
+    koinRootModule
 )
+
+fun createObjectMapper(): ObjectMapper {
+    return jacksonObjectMapper()
+        .registerModule(JavaTimeModule())
+        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+}
 
 fun Application.main() {
     install(ContentNegotiation) {
-        register(ContentType.Application.Json, JacksonConverter(jacksonObjectMapper()))
+        register(ContentType.Application.Json, JacksonConverter(createObjectMapper()))
     }
     install(Koin) {
         slf4jLogger()
