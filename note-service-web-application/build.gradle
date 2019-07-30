@@ -5,3 +5,10 @@ dependencies {
     compile project(':note-service:note-service-adapter-sql')
     compile project(':note-service:note-service-adapter-rest')
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': "com.razacx.project.launcher.ApplicationKt"
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
