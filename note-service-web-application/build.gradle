@@ -1,7 +1,7 @@
 
 dependencies {
-    project(':note-service:note-service-core-domain')
-    project(':note-service:note-service-core-api')
-    project(':note-service:note-service-adapter-sql')
-    project(':note-service:note-service-adapter-rest')
+    compile project(':note-service:note-service-core-domain')
+    compile project(':note-service:note-service-core-api')
+    compile project(':note-service:note-service-adapter-sql')
+    compile project(':note-service:note-service-adapter-rest')
 }
