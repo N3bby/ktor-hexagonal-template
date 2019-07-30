@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test
 import org.koin.ktor.ext.inject
 import java.time.LocalDateTime
 
-class NotesRouteTestKt: IntegrationTest() {
+class NotesRouteTestKt : IntegrationTest() {
 
     private val dateProvider = mockk<DateProvider>()
 
