@@ -50,9 +50,13 @@ subprojects {
 }
 
 configure(subprojects.findAll { it.name != "common-test" }) {
-
     dependencies {
         testCompile project(':common:common-test').sourceSets.test.output
     }
+}
 
+configure(subprojects.findAll { !it.name.startsWith("common") }) {
+    dependencies {
+        compile project(':common:common-util')
+    }
 }

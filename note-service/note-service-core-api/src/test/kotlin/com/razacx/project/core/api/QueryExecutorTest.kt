@@ -10,13 +10,13 @@ private const val DUMMY_MESSAGE = "Hello world!"
 class QueryExecutorTest: UnitTest() {
 
     @Test
-    internal fun `Executor calls QueryHandler using given query if it exists and returns the result`() {
+    internal fun `handle calls QueryHandler using given query if it exists and returns the result`() {
         val queryExecutor = QueryExecutor(QueryHandlerCollection(listOf(DummyQueryHandler())))
         Assertions.assertThat(queryExecutor.handle(DummyQuery())).isEqualTo(DUMMY_MESSAGE)
     }
 
     @Test
-    internal fun `Executor throws exception when no QueryHandler is found for the given query`() {
+    internal fun `handle throws exception when no QueryHandler is found for the given query`() {
         val queryExecutor = QueryExecutor(QueryHandlerCollection(emptyList()))
         org.junit.jupiter.api.assertThrows<DomainRuntimeException> { queryExecutor.handle(DummyQuery()) }
     }

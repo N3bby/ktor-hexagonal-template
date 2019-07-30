@@ -11,13 +11,13 @@ private const val DUMMY_MESSAGE = "Hello world!"
 class CommandExecutorTest : UnitTest() {
 
     @Test
-    internal fun `Executor calls CommandHandler using given command if it exists and returns the result`() {
+    internal fun `handle calls CommandHandler using given command if it exists and returns the result`() {
         val commandExecutor = CommandExecutor(CommandHandlerCollection(listOf(DummyCommandHandler())))
         assertThat(commandExecutor.handle(DummyCommand())).isEqualTo(DUMMY_MESSAGE)
     }
 
     @Test
-    internal fun `Executor throws exception when no CommandHandler is found for the given command`() {
+    internal fun `handle throws exception when no CommandHandler is found for the given command`() {
         val commandExecutor = CommandExecutor(CommandHandlerCollection(emptyList()))
         assertThrows<DomainRuntimeException> { commandExecutor.handle(DummyCommand()) }
     }

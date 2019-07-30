@@ -8,7 +8,7 @@ fun createKoinModule() = module {
     single {
         CommandHandlerCollection(
             listOf(
-                CreateNoteCommandHandler()
+                CreateNoteCommandHandler(get(), get(), get())
             )
         )
     }
@@ -16,8 +16,8 @@ fun createKoinModule() = module {
     single {
         QueryHandlerCollection(
             listOf(
-                FindAllNotesQueryHandler(),
-                FindNoteByIdQueryHandler()
+                FindAllNotesQueryHandler(get()),
+                FindNoteByIdQueryHandler(get())
             )
         )
     }
