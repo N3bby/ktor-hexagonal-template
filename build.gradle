@@ -37,7 +37,7 @@ subprojects {
         testCompile "org.koin:koin-test:$koin_version"
     }
 
-    compileKotlin {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         kotlinOptions {
             jvmTarget = "1.8"
         }
@@ -45,6 +45,14 @@ subprojects {
 
     test {
         useJUnitPlatform()
+    }
+
+}
+
+configure(subprojects.findAll { it.name != "common-test" }) {
+
+    dependencies {
+        testCompile project(':common:common-test').sourceSets.test.output
     }
 
 }

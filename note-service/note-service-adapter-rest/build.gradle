@@ -1,5 +1,0 @@
-
-dependencies {
-    compile project(':note-service:note-service-core-domain')
-    compile project(':note-service:note-service-core-api')
-}

@@ -1,9 +1,10 @@
 rootProject.name = 'ktor-hexagonal-template'
 
+include ':common:common-test'
 include ':note-service:note-service-core-api'
 include ':note-service:note-service-core-domain'
-include ':note-service:note-service-adapter-rest'
+include ':note-service:note-service-adapter-rest-api'
 include ':note-service:note-service-adapter-sql'
+include ':note-service:note-service-integration-tests'
 
 include ':note-service-web-application'
-

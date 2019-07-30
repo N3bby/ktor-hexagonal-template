@@ -3,7 +3,10 @@ dependencies {
     compile project(':note-service:note-service-core-domain')
     compile project(':note-service:note-service-core-api')
     compile project(':note-service:note-service-adapter-sql')
-    compile project(':note-service:note-service-adapter-rest')
+    compile project(':note-service:note-service-adapter-rest-api')
+
+    // Logging
+    compile "ch.qos.logback:logback-classic:1.2.3"
 }
 
 jar {
